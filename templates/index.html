@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }}</title>
+    {# Подключаем CSS-файл для стилизации #}
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>{{ page_title }}</h1>
+        <p>Найдите работу вашей мечты!</p>
+    </header>
+
+    <main>
+        <section class="vacancy-list">
+            {% if vacancies %} {# Проверяем, есть ли вакансии #}
+                {% for vacancy in vacancies %} {# Цикл по каждой вакансии #}
+                    <div class="vacancy-card">
+                        <h2 class="vacancy-title">{{ vacancy.title }}</h2>
+                        <p class="vacancy-company">{{ vacancy.company }}</p>
+                        <p class="vacancy-location">{{ vacancy.location }}</p>
+                        <p class="vacancy-salary">{{ vacancy.salary }}</p>
+                        <button class="details-btn" data-vacancy-id="{{ vacancy.id }}" data-vacancy-title="{{ vacancy.title }}">
+                            Подробнее
+                        </button>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>На данный момент нет открытых вакансий.</p>
+            {% endif %}
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Портал Вакансий. Все права защищены.</p>
+    </footer>
+
+    {# Подключаем JavaScript-файл для интерактивности #}
+    <script src="{{ url_for('static', path='/js/script.js') }}"></script>
+</body>
+</html>
